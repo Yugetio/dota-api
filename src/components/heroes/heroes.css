@@ -1,0 +1,19 @@
+.heroes img {
+    width: 100px;
+    margin: 10px;
+    border-radius: 3px;
+    border: 1px solid #444;
+    transition: all .5s;
+}
+
+.heroes img:hover{
+    cursor: pointer;
+}
+
+.heroes .foundImg {
+    position: relative;
+    width: 160px;
+    border-radius: 5px;
+    margin: -7px -20px;
+    box-shadow: 0px 0px 15px #ff722c, 0px 0px 15px #ffdc18;
+}
