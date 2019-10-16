@@ -2,16 +2,19 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Header from '../header';
+import SearchPanel from '../search-panel';
 import Heroes from '../heroes';
 import HeroDetails from '../hero-details'
+
+
 import { getAllHeroes } from "../../services/api-service";
 
 export default class App extends Component {
 
   state = {
     heroes: [],
-    selectedHero: null,
-    isLoaded: false
+    isLoaded: false,
+    findHero: ''
   };
 
   componentDidMount() {
@@ -21,32 +24,44 @@ export default class App extends Component {
       isLoaded: true
     }));
   }
-  onSelectedHero = (e, name) => {
-    // e.target.className ='foundImg';
+
+  onSearchHero = (e) => {
+    this.setState({
+      findHero: e.target.value
+    })
+  };
+
+  clearStateForFindHero = () => {
+    this.setState({
+      findHero:''
+    })
   };
 
   render() {
-    const { heroes, isLoaded } = this.state;
-    const heroesPage = !isLoaded ? 'Пагодь идет загрузка...' : <Heroes onSelectedHero={ this.onSelectedHero }
-                                                                       heroes={ heroes } />;
-
+    const { heroes, isLoaded, findHero } = this.state;
+    const heroesPage = !isLoaded ?
+                        'Пагодь идет загрузка...' :
+                        <Heroes  findHero={ findHero }
+                                 heroes={ heroes }
+                                 clearStateForFindHero={ this.clearStateForFindHero }/>;
 
     return (
       <div className="app">
         <Router>
           <Header/>
-          <Route path="/"
-                 exact >
+          <Route path="/" exact
+                 render={() => <SearchPanel onSearchHero={ this.onSearchHero } /> }/>
+          <Route path="/" exact >
             { heroesPage }
           </Route>
-
           <Route path="/:heroName" render={ ({ match }) => {
 
             if (isLoaded ) {
               const { heroName } = match.params;
               const hero = heroes.find(hero =>
                   hero.localized_name.toLowerCase().replace(/ /g, '_') ===
-                  heroName.toLowerCase());
+                  heroName.toLowerCase()
+              );
 
               return hero ? <HeroDetails hero={ hero }/> : <h1> Hero not found </h1>;
             }
@@ -56,14 +71,3 @@ export default class App extends Component {
     );
   }
 }
-
-/*
-
-app
-	router
-			header
-			context
-			|-	search
-			|-	|- route->heroes
-					|- hero
-*/

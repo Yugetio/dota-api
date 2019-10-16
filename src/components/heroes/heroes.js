@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './heroes.css';
@@ -6,42 +6,52 @@ import './heroes.css';
 import { filterHeroes } from '../helpers';
 import { baseUrl } from '../../services/api-service'
 
-export default class Heroes extends Component {
+const createListHeroes = (heroes, props) =>  {
+  const {findHero, clearStateForFindHero} = props;
 
-  createListHeroes(heroes) {
+  return heroes.map(hero => {
+    const nameHero = hero.localized_name;
 
-    return heroes.map(hero => (
-      <Link to={hero.localized_name.toLowerCase().replace(/ /g, '_')}>
-      <img src={`${ baseUrl }${ hero.img }`}
-        alt={ hero.localized_name }
-        title={ hero.localized_name }
-        key={ hero.id }
-        onClick={ (e) =>
-          this.props.onSelectedHero(e, hero.localized_name.replace(/ /g, '_')) } />
+    return (
+      <Link to={nameHero.toLowerCase().replace(/ /g, '_')}>
+        <img src={`${ baseUrl }${ hero.img }`}
+             alt={ nameHero }
+             title={ nameHero }
+             key={ hero.id }
+             className={ findHero && nameHero
+             .toLowerCase()
+             .includes(findHero.toLowerCase())
+               ? 'foundImg' : ''
+             }
+             onClick={ () => clearStateForFindHero() } />
       </Link>
-    ))
+    )
 
-  }
+  });
+};
 
 
-  render() {
-    const { heroes } = this.props;
+const Heroes = (props) => {
+    const { heroes } = props;
 
     let heroesAgi,
         heroesStr,
         heroesInt = null;
 
     if (heroes) {
-      heroesAgi = this.createListHeroes(
-        filterHeroes(heroes, 'agi')
+      heroesAgi = createListHeroes(
+        filterHeroes(heroes, 'agi'),
+        props
       );
 
-      heroesStr = this.createListHeroes(
-        filterHeroes(heroes, 'str')
+      heroesStr = createListHeroes(
+        filterHeroes(heroes, 'str'),
+        props
       );
 
-    	heroesInt = this.createListHeroes(
-        filterHeroes(heroes, 'int')
+    	heroesInt = createListHeroes(
+        filterHeroes(heroes, 'int'),
+        props
     	);
     }
 
@@ -50,14 +60,15 @@ export default class Heroes extends Component {
       <div className="heroes">
         <h3>Agility</h3>
         { heroesAgi }
-
-        <h3>Str</h3>
+        
+        <h3>Strength</h3>
         { heroesStr }
 
-        <h3>Int</h3>
+        <h3>Intelligence</h3>
         { heroesInt }
       </div>
     );
-	}
-}
+	};
+
+export default Heroes;
 
