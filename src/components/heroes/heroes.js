@@ -1,21 +1,9 @@
 import React, {Component} from 'react';
 import './heroes.css';
 
-import getAllHeroes from "../../services/api-service";
 import { filterHeroes } from '../helpers';
 
 export default class Heroes extends Component {
-  state = {
-    heroes: null,
-    selectedHero: null
-  };
-		
-	componentDidMount() {
-    getAllHeroes()
-      .then(heroes => this.setState({
-        heroes
-      }));
-	}
 
   createListHeroes(heroes) {
 
@@ -31,7 +19,7 @@ export default class Heroes extends Component {
 
 
   render() {
-    const { heroes } = this.state;
+    const { heroes } = this.props;
 
     let heroesAgi,
         heroesStr,
