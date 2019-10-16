@@ -1,13 +1,14 @@
-		const _baseUrl = 'https://api.opendota.com';
+const _baseUrl = 'https://api.opendota.com';
 
-		const getAllHeroes = async () => {
-				const result = await fetch(`${_baseUrl}/api/heroStats`);
+const getAllHeroes = async () => {
+  const result = await fetch(`${_baseUrl}/api/heroStats`);
 
-				if (!result.ok) {
-				  throw new Error(`Error status: ${result.status}`);
-				}
+    if (!result.ok) {
+      throw new Error(`Error status: ${result.status}`);
+    }
 
-				return await result.json();
-		};
+    return await result.json();
 
- export default getAllHeroes;
+};
+
+export default getAllHeroes;

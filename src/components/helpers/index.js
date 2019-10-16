@@ -1,11 +1,5 @@
-import {
-		filterHeroesByInt,
-		filterHeroesByStr,
-		filterHeroesByAgi
-} from './filter-heroes';
+import filterHeroes from './filter-heroes';
 
-export default {
-		filterHeroesByInt,
-		filterHeroesByStr,
-		filterHeroesByAgi
+export {
+	filterHeroes
 };

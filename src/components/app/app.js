@@ -1,23 +1,28 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Header from '../header';
 import Heroes from '../heroes';
 
 export default class App extends Component {
 
-		onSelectedHero = (e, name) => {
-				e.target.className = 'foundImg';
-				console.log(e, name);
-		};
+  onSelectedHero = (e, name) => {
+    // e.target.className = 'foundImg';
+    console.log(e, name);
+  };
 
-		render() {
-				return (
-						<div className="app">
-								<Header/>
-								<Heroes onSelectedHero={ this.onSelectedHero } />
-						</div>
-				);
-		}
+  render() {
+    return (
+      <div className="app">
+        <Router>
+          <Header/>
+          <Route path="/" >
+            <Heroes onSelectedHero={ this.onSelectedHero } />
+          </Route>
+        </Router>
+      </div>
+    );
+  }
 }
 
 /*
