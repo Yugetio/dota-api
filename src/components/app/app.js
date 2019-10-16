@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Header from '../header';
 import Heroes from '../heroes';
 import HeroDetails from '../hero-details'
-import getAllHeroes from "../../services/api-service";
+import { getAllHeroes } from "../../services/api-service";
 
 export default class App extends Component {
 
@@ -22,32 +22,33 @@ export default class App extends Component {
     }));
   }
   onSelectedHero = (e, name) => {
-    // e.target.className = 'foundImg';
-    console.log(e, name);
+    // e.target.className ='foundImg';
   };
 
   render() {
     const { heroes, isLoaded } = this.state;
+    const heroesPage = !isLoaded ? 'Пагодь идет загрузка...' : <Heroes onSelectedHero={ this.onSelectedHero }
+                                                                       heroes={ heroes } />;
+
+
     return (
       <div className="app">
         <Router>
           <Header/>
           <Route path="/"
                  exact >
-            <Heroes onSelectedHero={ this.onSelectedHero }
-                    heroes={ heroes } />
+            { heroesPage }
           </Route>
 
           <Route path="/:heroName" render={ ({ match }) => {
 
-            if (isLoaded) {
+            if (isLoaded ) {
               const { heroName } = match.params;
               const hero = heroes.find(hero =>
-                  hero.localized_name.toLowerCase().replace(' ', '_') ===
+                  hero.localized_name.toLowerCase().replace(/ /g, '_') ===
                   heroName.toLowerCase());
 
-
-              return <HeroDetails hero={ hero }/>;
+              return hero ? <HeroDetails hero={ hero }/> : <h1> Hero not found </h1>;
             }
           }}/>
         </Router>

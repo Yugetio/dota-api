@@ -1,18 +1,24 @@
 import React, {Component} from 'react';
+import { Link } from 'react-router-dom';
+
 import './heroes.css';
 
 import { filterHeroes } from '../helpers';
+import { baseUrl } from '../../services/api-service'
 
 export default class Heroes extends Component {
 
   createListHeroes(heroes) {
 
     return heroes.map(hero => (
-      <img src={`https://api.opendota.com${ hero.img }`}
+      <Link to={hero.localized_name.toLowerCase().replace(/ /g, '_')}>
+      <img src={`${ baseUrl }${ hero.img }`}
         alt={ hero.localized_name }
         title={ hero.localized_name }
         key={ hero.id }
-        onClick={ (e) => this.props.onSelectedHero(e, hero.localized_name.replace(/ /g, '_')) } />
+        onClick={ (e) =>
+          this.props.onSelectedHero(e, hero.localized_name.replace(/ /g, '_')) } />
+      </Link>
     ))
 
   }

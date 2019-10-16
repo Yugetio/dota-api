@@ -1,7 +1,7 @@
-const _baseUrl = 'https://api.opendota.com';
+const baseUrl = 'https://api.opendota.com';
 
 const getAllHeroes = async () => {
-  const result = await fetch(`${_baseUrl}/api/heroStats`);
+  const result = await fetch(`${baseUrl}/api/heroStats`);
 
     if (!result.ok) {
       throw new Error(`Error status: ${result.status}`);
@@ -11,4 +11,4 @@ const getAllHeroes = async () => {
 
 };
 
-export default getAllHeroes;
+export { getAllHeroes, baseUrl };
