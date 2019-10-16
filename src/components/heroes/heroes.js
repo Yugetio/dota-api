@@ -13,15 +13,14 @@ const createListHeroes = (heroes, props) =>  {
     const nameHero = hero.localized_name;
 
     return (
-      <Link to={nameHero.toLowerCase().replace(/ /g, '_')}>
+      <Link to={ nameHero.toLowerCase().replace(/ /g, '_') } key={hero.id}>
         <img src={`${ baseUrl }${ hero.img }`}
              alt={ nameHero }
              title={ nameHero }
-             key={ hero.id }
+             // key={ hero.id }
              className={ findHero && nameHero
-             .toLowerCase()
-             .includes(findHero.toLowerCase())
-               ? 'foundImg' : ''
+                .toLowerCase()
+                .includes(findHero.toLowerCase()) ? 'foundImg' : ''
              }
              onClick={ () => clearStateForFindHero() } />
       </Link>

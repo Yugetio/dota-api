@@ -5,7 +5,7 @@ import './header.css';
 
 const Header = () => {
 	return (
-		<div>
+		<div className="header">
 			<Link to="/">
 				<h1>Dota API</h1>
 			</Link>

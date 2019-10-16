@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
+import './app.css';
+
 import Header from '../header';
 import SearchPanel from '../search-panel';
 import Heroes from '../heroes';
 import HeroDetails from '../hero-details'
 
-
+import ErrorBoundry from '../error-boundry';
 import { getAllHeroes } from "../../services/api-service";
 
 export default class App extends Component {
@@ -14,15 +16,18 @@ export default class App extends Component {
   state = {
     heroes: [],
     isLoaded: false,
+    hasError: false,
     findHero: ''
   };
 
   componentDidMount() {
     getAllHeroes()
-    .then(heroes => this.setState({
-      heroes,
-      isLoaded: true
-    }));
+      .then(heroes => this.setState({
+        heroes,
+        isLoaded: true
+      })).catch(() => this.setState({
+        hasError: true
+      }))
   }
 
   onSearchHero = (e) => {
@@ -46,28 +51,30 @@ export default class App extends Component {
                                  clearStateForFindHero={ this.clearStateForFindHero }/>;
 
     return (
-      <div className="app">
+      <ErrorBoundry>
         <Router>
-          <Header/>
-          <Route path="/" exact
-                 render={() => <SearchPanel onSearchHero={ this.onSearchHero } /> }/>
-          <Route path="/" exact >
-            { heroesPage }
-          </Route>
-          <Route path="/:heroName" render={ ({ match }) => {
+          <div className="app">
+            <Header/>
+            <Route path="/" exact
+                   render={() => <SearchPanel onSearchHero={ this.onSearchHero } /> }/>
+            <Route path="/" exact >
+              { heroesPage }
+            </Route>
+            <Route path="/:heroName" render={ ({ match }) => {
 
-            if (isLoaded ) {
-              const { heroName } = match.params;
-              const hero = heroes.find(hero =>
-                  hero.localized_name.toLowerCase().replace(/ /g, '_') ===
-                  heroName.toLowerCase()
-              );
+              if (isLoaded ) {
+                const { heroName } = match.params;
+                const hero = heroes.find(hero =>
+                    hero.localized_name.toLowerCase().replace(/ /g, '_') ===
+                    heroName.toLowerCase()
+                );
 
-              return hero ? <HeroDetails hero={ hero }/> : <h1> Hero not found </h1>;
-            }
-          }}/>
+                return hero ? <HeroDetails hero={ hero }/> : <h1> Hero not found </h1>;
+              }
+            }}/>
+          </div>
         </Router>
-      </div>
+      </ErrorBoundry>
     );
   }
 }
