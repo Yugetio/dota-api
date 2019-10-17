@@ -1,0 +1,24 @@
+.search-panel {
+  width: 100%;
+  min-height: 70px;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-panel input{
+  width: 80%;
+  box-sizing: border-box;
+  border: 3px solid #ccc;
+  border-radius: 15px/20px;
+  outline: none;
+  padding: 10px;
+  margin: 45px 0;
+}
+
+.search-panel input:focus {
+  border: 3px solid #888;
+}

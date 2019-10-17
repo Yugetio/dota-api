@@ -1,0 +1,11 @@
+.hero-details {
+  margin: 20px;
+}
+
+.hero-details img {
+  border-radius: 10px;
+}
+
+.hero-details li {
+  padding: 3px;
+}

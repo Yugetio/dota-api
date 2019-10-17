@@ -1,9 +1,10 @@
 import React from 'react';
 import { baseUrl } from '../../services/api-service'
+import './hero-details.css';
 
 const HeroDetails = ({ hero }) => {
     return (
-      <ul>
+      <ul className="hero-details">
         <li>
           <img src={baseUrl + hero.img}
                key={hero.id}

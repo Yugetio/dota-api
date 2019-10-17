@@ -1,18 +1,51 @@
+.heroes {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 20px;
+}
+
+.heroes > div {
+  width: 50%;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+
+.heroes div h3 {
+  border-bottom: 2px solid #333;
+  margin: 0 5px 10px;
+  padding: 5px 10px;
+  font-size: 1.2rem;
+}
+
 .heroes img {
-    width: 100px;
-    margin: 10px;
-    border-radius: 3px;
-    border: 1px solid #444;
+  width: 100px;
+  margin: 10px;
+  border-radius: 3px;
+  border: 1px solid #444;
 }
 
 .heroes img:hover{
-    cursor: pointer;
+  cursor: pointer;
+
+  position: relative;
+  width: 160px;
+  border-radius: 5px;
+  margin: -7px -20px;
+  box-shadow: 0px 0px 15px #ff722c, 0px 0px 15px #ffdc18;
 }
 
 .heroes .foundImg {
-    position: relative;
-    width: 160px;
-    border-radius: 5px;
-    margin: -7px -20px;
-    box-shadow: 0px 0px 15px #ff722c, 0px 0px 15px #ffdc18;
+  position: relative;
+  width: 160px;
+  border-radius: 5px;
+  margin: -7px -20px;
+  box-shadow: 0px 0px 15px #ff722c, 0px 0px 15px #ffdc18;
+}
+
+@media screen and (max-width: 1240px) {
+  .heroes > div {
+    width: 100%;
+  }
 }

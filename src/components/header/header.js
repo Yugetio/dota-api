@@ -6,9 +6,7 @@ import './header.css';
 const Header = () => {
 	return (
 		<div className="header">
-			<Link to="/">
-				<h1>Dota API</h1>
-			</Link>
+			<Link to="/">Dota API</Link>
 		</div>
 	);
 };

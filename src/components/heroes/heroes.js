@@ -17,7 +17,6 @@ const createListHeroes = (heroes, props) =>  {
         <img src={`${ baseUrl }${ hero.img }`}
              alt={ nameHero }
              title={ nameHero }
-             // key={ hero.id }
              className={ findHero && nameHero
                 .toLowerCase()
                 .includes(findHero.toLowerCase()) ? 'foundImg' : ''
@@ -57,14 +56,20 @@ const Heroes = (props) => {
 
     return (
       <div className="heroes">
-        <h3>Agility</h3>
-        { heroesAgi }
-        
-        <h3>Strength</h3>
-        { heroesStr }
+        <div className="agi">
+          <h3>Agility</h3>
+          { heroesAgi }
+        </div>
 
-        <h3>Intelligence</h3>
-        { heroesInt }
+        <div className="str">
+          <h3>Strength</h3>
+          { heroesStr }
+        </div>
+
+        <div className="int">
+          <h3>Intelligence</h3>
+          { heroesInt }
+        </div>
       </div>
     );
 	};
