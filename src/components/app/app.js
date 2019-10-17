@@ -45,13 +45,13 @@ export default class App extends Component {
   render() {
     const { heroes, isLoaded, findHero } = this.state;
     const heroesPage = !isLoaded ?
-                        'Пагодь идет загрузка...' :
+                        'Loading...' :
                         <Heroes  findHero={ findHero }
                                  heroes={ heroes }
                                  clearStateForFindHero={ this.clearStateForFindHero }/>;
 
     return (
-      <ErrorBoundry>
+      <ErrorBoundry hasError={ this.state.hasError}>
         <Router>
           <div className="app">
             <Header/>
