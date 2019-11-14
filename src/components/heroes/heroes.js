@@ -21,7 +21,7 @@ const createListHeroes = (heroes, props) =>  {
                 .toLowerCase()
                 .includes(findHero.toLowerCase()) ? 'foundImg' : ''
              }
-             onClick={ () => clearStateForFindHero() } />
+             onClick={  clearStateForFindHero } />
       </Link>
     )
 

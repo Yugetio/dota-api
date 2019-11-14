@@ -55,14 +55,13 @@ export default class App extends Component {
         <Router>
           <div className="app">
             <Header/>
-            <Route path="/" exact
-                   render={() => <SearchPanel onSearchHero={ this.onSearchHero } /> }/>
             <Route path="/" exact >
+              <SearchPanel onSearchHero={ this.onSearchHero } />
               { heroesPage }
             </Route>
             <Route path="/:heroName" render={ ({ match }) => {
 
-              if (isLoaded ) {
+              if ( isLoaded ) {
                 const { heroName } = match.params;
                 const hero = heroes.find(hero =>
                     hero.localized_name.toLowerCase().replace(/ /g, '_') ===
